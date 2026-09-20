@@ -43,7 +43,7 @@ def main():
 
     # Save tokens
     os.makedirs(TOKEN_DIR, exist_ok=True)
-    garmin.garth.dump(TOKEN_DIR)
+    garmin.client.dump(TOKEN_DIR)
     logger.info(f"Tokens saved to {TOKEN_DIR}")
 
     # Verify
