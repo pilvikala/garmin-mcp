@@ -1,0 +1,22 @@
+services:
+  garmin-mcp:
+    build: .
+    ports:
+      - "${PORT:-8000}:8000"
+    volumes:
+      - garmin_tokens:/data/garmin_tokens
+    environment:
+      - GARMIN_TOKEN_DIR=/data/garmin_tokens
+      - MCP_API_KEY=${MCP_API_KEY:-}
+      - HOST=0.0.0.0
+      - PORT=8000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/mcp')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  garmin_tokens:
